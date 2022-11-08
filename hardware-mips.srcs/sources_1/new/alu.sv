@@ -13,7 +13,7 @@ typedef enum {
     MIPS_OP_SUB = 34,
     MIPS_OP_AND = 36,
     MIPS_OP_OR  = 37,
-    MIPS_OP_SLT = 32
+    MIPS_OP_SLT = 42
 } MIPS_OP;
 
 module aludec(input  logic [5:0] funct,
@@ -52,7 +52,7 @@ module alu(input  logic [31:0] s1, s2,
             ALU_OP_SLT: aluout <= s1 < s2;
             default:    aluout <= 'hxxxx;
         endcase
-        
-        assign zero = (aluout == 0);
     end
+    
+    assign zero = (aluout == 0);
 endmodule

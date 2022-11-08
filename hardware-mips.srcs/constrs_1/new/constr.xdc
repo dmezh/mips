@@ -27,3 +27,5 @@ set_property DRIVE 4 [get_ports {leds[2]}]
 set_property DRIVE 4 [get_ports {leds[1]}]
 set_property DRIVE 4 [get_ports {leds[0]}]
 
+
+create_clock -period 10.000 -name sysclk -waveform {0.000 5.000} [get_ports -filter { NAME =~  "*" && DIRECTION == "IN" }]

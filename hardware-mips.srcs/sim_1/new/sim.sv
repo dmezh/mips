@@ -1,36 +1,21 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/08/2022 12:59:49 PM
-// Design Name: 
-// Module Name: sim
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module sim(
 
     );
+
+    logic [2:0] aluctl;
+    logic [31:0] s1, s2, aluout;
+    logic zero;
     
-    logic [7:0] leds;
-    logic sysclk = 0;
-    
-    led_rotator rotator(.leds_out(leds), .clk(sysclk));
+    alu alu(.aluctl(aluctl), .s1(s1), .s2(s2), .aluout(aluout), .zero(zero)); 
     initial begin
-    for (int i = 0; i < 64; i += 1) begin
-        sysclk = !sysclk;
+    
+    for (int i = 0; i < 8; i += 1) begin
+        s1 <= 'h00FFFFF0;
+        s2 <= 'hF000000F;
+        
+        aluctl <= i;
         #20;
     end
     end
