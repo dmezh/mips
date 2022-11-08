@@ -38,3 +38,21 @@ module aludec(input  logic [5:0] funct,
     end
 endmodule
 
+module alu(input  logic [31:0] s1, s2,
+           input  logic [2:0]  aluctl,
+           output logic [31:0] aluout,
+           output logic        zero);
+
+    always_comb begin
+        case (aluctl)
+            ALU_OP_ADD: aluout <= s1 + s2;
+            ALU_OP_SUB: aluout <= s1 - s2;
+            ALU_OP_AND: aluout <= s1 & s2;
+            ALU_OP_OR:  aluout <= s1 | s2;
+            ALU_OP_SLT: aluout <= s1 < s2;
+            default:    aluout <= 'hxxxx;
+        endcase
+        
+        assign zero = (aluout == 0);
+    end
+endmodule
