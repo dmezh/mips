@@ -28,7 +28,7 @@ module cpu(
     /////////////// Clocking
     logic sysclk;
     logic coreclk;
-    coreclockdiv#(22) clk_div(.sysclk(sysclk), .coreclk(coreclk));
+    coreclockdiv#(21) clk_div(.sysclk(sysclk), .coreclk(coreclk));
     
     /////////////// IO
     logic [7:0] leds;
