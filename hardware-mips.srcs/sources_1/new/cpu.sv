@@ -26,12 +26,12 @@ module cpu(
     );
 
     /////////////// Clocking
-    wire sysclk;
-    wire coreclk;
-    coreclockdiv clk_div(.sysclk(sysclk), .coreclk(coreclk));
+    logic sysclk;
+    logic coreclk;
+    coreclockdiv#(22) clk_div(.sysclk(sysclk), .coreclk(coreclk));
     
     /////////////// IO
-    wire [7:0] leds;
+    logic [7:0] leds;
     led_rotator rotator(.leds_out(leds), .clk(coreclk));
      
 endmodule

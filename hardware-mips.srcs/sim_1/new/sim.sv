@@ -24,8 +24,8 @@ module sim(
 
     );
     
-    reg [7:0] leds;
-    reg sysclk = 0;
+    logic [7:0] leds;
+    logic sysclk = 0;
     
     led_rotator rotator(.leds_out(leds), .clk(sysclk));
     initial begin

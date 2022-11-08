@@ -20,15 +20,16 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module coreclockdiv(sysclk, coreclk);
-    input wire sysclk;
-    output wire coreclk;
+module coreclockdiv#(parameter DIV=22)
+                    (sysclk, coreclk);
+    input logic sysclk;
+    output logic coreclk;
     
-    reg [25:0] scaler;
+    logic [DIV:0] scaler;
     
     always @(posedge sysclk) begin
         scaler += 1;
     end
     
-    assign coreclk = scaler[22];
+    assign coreclk = scaler[DIV];
 endmodule

@@ -25,10 +25,10 @@ module instruction_memory(
         output content
     );
     
-    wire [5:0] addr;
-    wire [31:0] content;
+    logic [5:0] addr;
+    logic [31:0] content;
     
-    reg [31:0] memblock [63:0];
+    logic [31:0] memblock [63:0];
     
     assign content = memblock[addr];
 endmodule
