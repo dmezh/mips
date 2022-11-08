@@ -13,7 +13,7 @@ module sl2_32(input  logic [31:0] a,
 endmodule
 
 module adder32(input  logic [31:0] a, b,
-               output logic [31:0] ay);
+               output logic [31:0] y);
 
     assign y = a + b;
 endmodule

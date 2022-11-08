@@ -21,15 +21,31 @@
 
 
 module instruction_memory(
-        input addr,
-        output content
+        input logic [5:0] addr,
+        output logic [31:0] content
     );
     
-    logic [5:0] addr;
-    logic [31:0] content;
-    
     logic [31:0] memblock [63:0];
+    
+    initial begin
+        $readmemh("test_routine.mem", memblock);
+        $display(memblock);
+    end
     
     assign content = memblock[addr];
 endmodule
 
+module data_memory(input logic          clk, we,
+                   input logic [31:0]   a, wd,
+                   output logic [31:0]  rd);
+
+    logic [31:0] memblock[63:0];
+    
+    assign rd = memblock[a[31:2]];
+    
+    always_ff @(posedge clk) begin
+        if (we)
+            memblock[a[31:2]] <= wd;
+    end
+                   
+endmodule

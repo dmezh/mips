@@ -40,16 +40,33 @@
      
 //endmodule
 
-module mips(input logic clk, reset,
+module top(input logic clk, reset,
+           output logic [31:0] writedata, dataadr,
+           output logic memwrite,
+           output logic [31:0] imemout,
+           output logic [31:0] pc_out, pcplus4_out);
+
+    logic [31:0] pc, instr, readdata;
+
+    mips mips(clk, reset, pc, instr, memwrite, dataadr, writedata, readdata, pcplus4_out);
+    instruction_memory instruction_memory(pc[7:2], instr);
+    data_memory data_memory(clk, memwrite, dataadr, writedata, readdata);
+    
+    assign imemout = instr;
+    assign pc_out = pc;
+endmodule
+
+module mips(input  logic clk, reset,
             output logic [31:0] pc,
-            input logic [31:0] instr,
+            input  logic [31:0] instr,
             output logic memwrite,
             output logic [31:0] aluout, writedata,
-            input logic [31:0] readdata);
+            input  logic [31:0] readdata,
+            output logic [31:0] pcplus4_out);
             
     logic memtoreg, alusrc, regdst, regwrite, jump, pcsrc, zero;
     logic [2:0] alucontrol;
     controller c(instr[31:26], instr[5:0], zero,memtoreg, memwrite, pcsrc, alusrc, regdst, regwrite, jump, alucontrol);
     
-    datapath dp(clk, reset, memtoreg, pcsrc, alusrc, regdst, regwrite, jump, alucontrol, zero, pc, instr, aluout, writedata, readdata);
+    datapath dp(clk, reset, memtoreg, pcsrc, alusrc, regdst, regwrite, jump, alucontrol, zero, pc, instr, aluout, writedata, readdata, pcplus4_out);
 endmodule
